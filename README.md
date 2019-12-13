@@ -14,7 +14,7 @@ A repo storing templates of [SpiderX][SpiderXUrl].
 For everyone, this repo must be used legally under local law. Users have total responsibility for ensuring their own compliance with legal requirements, while authors and contributors won't be held responsible for actions of illegal users.
 >对所有人来说，该项目必须在当地法律允许的范围内使用。使用者对确保自己遵守法律要求负有完全责任，而作者和贡献者对违法使用者的行为概不负责。
 
-All of the codes in this project are just for instructions, learning and communication. If you change the source codes, please obey the open-source lisence.
+All of the codes in this project are just for instructions, learning and communication. If you change the source codes, please obey the open-source license.
 >本项目中的所有代码仅用于说明、学习和交流。如果你修改了源代码，请遵守开源协议。
 
 ## Instructions |使用说明
