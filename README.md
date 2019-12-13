@@ -1,6 +1,6 @@
 # SpiderX.Template
 
-[![.NET Core](https://img.shields.io/badge/.NET%20Core-%203.0-brightgreen)][DotNetCoreUrl]
+[![.NET Core](https://img.shields.io/badge/.NET%20Core-%203.1-brightgreen)][DotNetCoreUrl]
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 [DotNetCoreUrl]: https://dotnet.microsoft.com/download
