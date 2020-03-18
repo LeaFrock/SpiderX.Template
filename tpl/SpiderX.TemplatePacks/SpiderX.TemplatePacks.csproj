@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <PackageType>Template</PackageType>
+        <PackageVersion>0.1</PackageVersion>
+        <PackageId>SpiderX.TemplatePacks</PackageId>
+        <Title>SpiderX TemplatePacks</Title>
+        <Authors>LeaFrock</Authors>
+        <Description>Templates of SpiderX.</Description>
+        <PackageTags>dotnet-new;templates;SpiderX</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <PackageProjectUrl>https://github.com/LeaFrock/SpiderX.Template</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/LeaFrock/SpiderX.Template.git</RepositoryUrl>
+        <PackageReleaseNotes>First version: Big Bang</PackageReleaseNotes>
+
+        <IncludeContentInPack>true</IncludeContentInPack>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <ContentTargetFolders>content</ContentTargetFolders>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+        <Compile Remove="**\*" />
+    </ItemGroup>
+
+</Project>
