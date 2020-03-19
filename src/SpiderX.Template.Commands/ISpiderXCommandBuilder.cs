@@ -7,6 +7,6 @@ namespace SpiderX.Template.Commands
     {
         string ShortName { get; }
 
-        Command Build(IConfiguration config);
+        Command Build(IConfigurationRoot config);
     }
 }

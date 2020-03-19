@@ -13,15 +13,17 @@ namespace SpiderX.Template
     {
         private static async Task<int> Main(string[] args)
         {
+            // Do NOT use Directory.GetCurrentDirectory() due to the dotnet tool setting after packing.
+            string appConfigDirPath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
             var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(appConfigDirPath)
                 .AddJsonFile("appsettings.json")
                 .Build();
             var rootCmd = new RootCommand() { TreatUnmatchedTokensAsErrors = true, Name = "spiderx" };
             rootCmd.AddSpiderXCommand<SpiderXNewCommandBuilder>(config);
             int result = await rootCmd.InvokeAsync(args);
             Console.WriteLine((ResultCodeEnum)result);
-            Console.ReadKey();
+            // Console.ReadKey();
             return result;
         }
     }

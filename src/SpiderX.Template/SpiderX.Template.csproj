@@ -7,24 +7,16 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>spiderx</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+
     <PackageId>SpiderX.Template</PackageId>
     <Authors>LeaFrock</Authors>
-    <Company>LeaFrock</Company>
+    <Version>1.0.0</Version>
     <Product>SpiderX.Template</Product>
-    <Description>Code generator of SpiderX</Description>
+    <Description>Code generator of SpiderX.</Description>
     <Copyright>Copyright © LeaFrock 2020</Copyright>
-    <PackageTags>SpiderX</PackageTags>
+    <PackageTags>dotnet-tool;SpiderX</PackageTags>
     <PackageProjectUrl>https://github.com/LeaFrock/SpiderX.Template</PackageProjectUrl>
-
-    <IncludeContentInPack>true</IncludeContentInPack>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
@@ -32,5 +24,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SpiderX.Template.Commands\SpiderX.Template.Commands.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

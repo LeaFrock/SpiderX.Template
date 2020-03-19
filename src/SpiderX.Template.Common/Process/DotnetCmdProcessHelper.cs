@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using SpiderX.Template.Common.Nuget;
 
 namespace SpiderX.Template.Common.Process
 {
@@ -7,32 +9,37 @@ namespace SpiderX.Template.Common.Process
     {
         public const string FileName = "dotnet";
 
-        public static bool ReinstallTemplate(ICmdProcessCaller processCaller, DirectoryInfo templateDirInfo, string templateType, string keyword, bool force = false)
+        public const string DotnetTemplateType = "spiderx";
+
+        public static bool InstallTemplate(ICmdProcessCaller processCaller, NugetPackageInfo packageInfo)
         {
-            if (force)
+            string command = "new -i " + packageInfo.Id + (string.IsNullOrEmpty(packageInfo.Version) ? null : ("::" + packageInfo.Version));
+            bool instOK = true;
+            bool exeOK = Execute(processCaller, command, (sr) =>
             {
-                if (!UninstallTemplate(processCaller, templateDirInfo))
+                while (!sr.EndOfStream)
                 {
-                    return false;
+                    string str = sr.ReadLine();
+                    if (!string.IsNullOrEmpty(str) && str.Contains(": error "))
+                    {
+                        Console.WriteLine($"{nameof(InstallTemplate)} Error: {str}");
+                        instOK = false;
+                        break;
+                    }
                 }
-            }
-            else
-            {
-                if (ExistTemplate(processCaller, templateType, keyword))
-                {
-                    return true;
-                }
-            }
-            return InstallTemplate(processCaller, templateDirInfo);
+            });
+            return instOK && exeOK;
         }
 
-        public static bool InstallTemplate(ICmdProcessCaller processCaller, DirectoryInfo templateDirInfo) => Execute(processCaller, "new -i " + templateDirInfo.FullName);
+        public static bool UninstallTemplate(ICmdProcessCaller processCaller, NugetPackageInfo packageInfo) => Execute(processCaller, "new -u " + packageInfo.Id);
 
-        public static bool UninstallTemplate(ICmdProcessCaller processCaller, DirectoryInfo templateDirInfo) => Execute(processCaller, "new -u " + templateDirInfo.FullName);
+        public static bool CheckTemplateUpdates(ICmdProcessCaller processCaller) => Execute(processCaller, "new --update-check");
 
-        public static bool ShowTemplateList(ICmdProcessCaller processCaller, string type) => Execute(processCaller, $"new --list --type {type}");
+        public static bool ApplyTemplateUpdates(ICmdProcessCaller processCaller) => Execute(processCaller, "new --update-apply");
 
-        public static bool ExistTemplate(ICmdProcessCaller processCaller, string type, string keyword)
+        public static bool ShowTemplateList(ICmdProcessCaller processCaller, string type = DotnetTemplateType) => Execute(processCaller, $"new --list --type {type}");
+
+        public static bool ExistTemplate(ICmdProcessCaller processCaller, string keyword, string type = DotnetTemplateType)
         {
             bool result = false;
             Execute(processCaller, $"new --list --type {type}", (sr) =>
@@ -52,6 +59,7 @@ namespace SpiderX.Template.Common.Process
 
         public static bool Execute(ICmdProcessCaller processCaller, string command, Action<StreamReader> resultAction = null)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             var process = processCaller.Call(command);
             if (process is null || process.StartInfo?.FileName != FileName)
             {
@@ -69,8 +77,9 @@ namespace SpiderX.Template.Common.Process
                     resultAction.Invoke(sr);
                 }
             }
-            Console.WriteLine($"{nameof(DotnetCmdProcessHelper)} runs {(process.ExitTime - process.StartTime).TotalMilliseconds.ToString()}ms");
-            ProcessHelper.EnsureProcessExited(process);
+            sw.Stop();
+            Console.WriteLine($"{nameof(DotnetCmdProcessHelper)} runs {sw.ElapsedMilliseconds}ms");
+            process.Dispose();
             return true;
         }
     }
