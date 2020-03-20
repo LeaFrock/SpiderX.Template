@@ -9,13 +9,18 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>
 
     <PackageId>SpiderX.Template</PackageId>
+    <Title>SpiderX Template</Title>
     <Authors>LeaFrock</Authors>
     <Version>1.0.0</Version>
     <Product>SpiderX.Template</Product>
     <Description>Code generator of SpiderX.</Description>
     <Copyright>Copyright © LeaFrock 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>dotnet-tool;SpiderX</PackageTags>
     <PackageProjectUrl>https://github.com/LeaFrock/SpiderX.Template</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LeaFrock/SpiderX.Template.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>First Version: Big bang.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
