@@ -13,7 +13,7 @@ namespace SpiderX.Template.Core.ProcessWrapper.Callers
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = false
+                CreateNoWindow = true
             };
             return Process.Start(psi);
         }
