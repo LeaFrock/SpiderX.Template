@@ -19,7 +19,7 @@ namespace SpiderX.Template.Commands.Builders
             setting = config.GetCmdSetting(ShortName) ?? throw new SpiderXConfigCommandException(this);
             var child = new Command(ShortName, "Create new project")
             {
-                new Option(new string[] { "--project", "-p" }, "Give the name of new project to be created") { Argument = new Argument<string>(){ Arity = ArgumentArity.ExactlyOne }, Required = true },
+                new Option(new string[] { "--project", "-p" }, "Give the name of new project to be created") { Argument = new Argument<string>(){ Arity = ArgumentArity.ExactlyOne }, IsRequired = true },
                 new Option(new string[] { "--namespace", "-n" }, "Give the namespace of new project") { Argument = new Argument<string>(()=> config.GetSection("LocalSettings").GetSection("DefaultNamespace").Value) { Arity = ArgumentArity.ExactlyOne } },
                 new Option(new string[] { "--version", "-v" }, "Select which version of template to apply") { Argument = new Argument<string>() },
                 new Option(new string[] { "--output", "-o" }, "Set the output path of files") { Argument = new Argument<DirectoryInfo>(() => new DirectoryInfo(Directory.GetCurrentDirectory())) { Arity = ArgumentArity.ExactlyOne } },
